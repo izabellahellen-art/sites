@@ -3,756 +3,546 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diagnóstico Estratégico — @marinamartinssemijoia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <title>MIRECMAKER — Proposta de Cobertura</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #07071a;
-      --surface:   #0e0e28;
-      --surface2:  #14143a;
-      --purple-d:  #3b1fa8;
-      --purple:    #6c3ef5;
-      --purple-l:  #9b6fff;
-      --violet:    #b48cff;
-      --gold:      #c9a84c;
-      --gold-l:    #e8c97e;
-      --red:       #e53e3e;
-      --amber:     #d97706;
-      --green:     #10b981;
-      --text:      #f0efff;
-      --muted:     #9490c4;
-      --border:    rgba(108, 62, 245, 0.2);
+      --black: #0a0a0a;
+      --dark: #111111;
+      --gray-900: #1a1a1a;
+      --gray-700: #2e2e2e;
+      --gray-500: #5a5a5a;
+      --gray-400: #7a7a7a;
+      --gray-300: #a0a0a0;
+      --gray-200: #c8c8c8;
+      --gray-100: #e8e8e8;
+      --gray-50: #f4f4f4;
+      --white: #ffffff;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
       font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      line-height: 1.65;
-      min-height: 100vh;
-    }
-
-    /* ── Noise texture overlay ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── HEADER ── */
-    header {
-      position: relative;
-      overflow: hidden;
-      padding: 72px 24px 80px;
-      text-align: center;
-      background: linear-gradient(160deg, #0e0d2e 0%, #07071a 60%);
-    }
-
-    header::after {
-      content: '';
-      position: absolute;
-      top: -120px; left: 50%;
-      transform: translateX(-50%);
-      width: 700px; height: 700px;
-      background: radial-gradient(ellipse at center, rgba(108,62,245,.35) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .agency-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(108,62,245,.12);
-      border: 1px solid rgba(108,62,245,.35);
-      border-radius: 100px;
-      padding: 6px 16px 6px 8px;
-      margin-bottom: 32px;
-      position: relative; z-index: 1;
-    }
-
-    .agency-logo {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #1a0a4a, #3b1fa8);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 800;
-      color: #fff;
-      letter-spacing: -0.5px;
-      border: 1px solid rgba(155,111,255,.4);
-      flex-shrink: 0;
-    }
-
-    .agency-logo span { color: var(--red); }
-
-    .agency-name {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--violet);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .phase-tag {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-      background: rgba(201,168,76,.1);
-      border: 1px solid rgba(201,168,76,.3);
-      border-radius: 4px;
-      padding: 3px 10px;
-      margin-bottom: 16px;
-      position: relative; z-index: 1;
-    }
-
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(28px, 5vw, 52px);
-      font-weight: 600;
-      line-height: 1.15;
-      position: relative; z-index: 1;
-      margin-bottom: 12px;
-    }
-
-    header h1 em {
-      font-style: italic;
-      background: linear-gradient(90deg, var(--purple-l), var(--gold-l));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .handle {
-      font-size: 15px;
-      color: var(--muted);
-      position: relative; z-index: 1;
-    }
-
-    .handle strong {
-      color: var(--violet);
-      font-weight: 500;
-    }
-
-    /* ── CONTAINER ── */
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 20px 100px;
-      position: relative; z-index: 1;
-    }
-
-    /* ── SECTION TITLES ── */
-    .section-label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 56px 0 24px;
-    }
-
-    .section-label::before {
-      content: '';
-      display: block;
-      width: 4px; height: 22px;
-      border-radius: 2px;
-      background: linear-gradient(180deg, var(--purple), var(--purple-l));
-      flex-shrink: 0;
-    }
-
-    .section-label h2 {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--violet);
-    }
-
-    /* ── SCORE GRID ── */
-    .score-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-    }
-
-    .score-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px 20px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      transition: transform .2s, border-color .2s;
-    }
-
-    .score-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(108,62,245,.5);
-    }
-
-    .score-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      border-radius: 16px 16px 0 0;
-    }
-
-    .score-card.good::before   { background: linear-gradient(90deg, var(--green), #6ee7b7); }
-    .score-card.mid::before    { background: linear-gradient(90deg, var(--amber), #fbbf24); }
-    .score-card.low::before    { background: linear-gradient(90deg, var(--red), #fc8181); }
-    .score-card.mid-low::before { background: linear-gradient(90deg, #d97706, #f59e0b); }
-
-    .score-value {
-      font-size: 42px;
-      font-weight: 800;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .score-card.good  .score-value { color: var(--green); }
-    .score-card.mid   .score-value { color: #fbbf24; }
-    .score-card.low   .score-value { color: var(--red); }
-    .score-card.mid-low .score-value { color: #f59e0b; }
-
-    .score-denom {
-      font-size: 18px;
-      font-weight: 500;
-      opacity: .5;
-    }
-
-    .score-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
-
-    /* ── STRENGTHS ── */
-    .strength-list { display: flex; flex-direction: column; gap: 14px; }
-
-    .strength-item {
-      display: flex;
-      gap: 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px 22px;
-      align-items: flex-start;
-      transition: border-color .2s;
-    }
-
-    .strength-item:hover { border-color: rgba(201,168,76,.35); }
-
-    .strength-icon {
-      width: 36px; height: 36px;
-      border-radius: 10px;
-      background: rgba(201,168,76,.12);
-      border: 1px solid rgba(201,168,76,.25);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 17px;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .strength-text strong {
-      display: block;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--gold-l);
-      margin-bottom: 4px;
-    }
-
-    .strength-text p {
-      font-size: 13.5px;
-      color: var(--muted);
+      background-color: var(--black);
+      color: var(--white);
       line-height: 1.6;
     }
 
-    /* ── ISSUES ── */
-    .issue-list { display: flex; flex-direction: column; gap: 14px; }
-
-    .issue-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px 24px;
-      transition: border-color .2s;
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
     }
 
-    .issue-card:hover { border-color: rgba(108,62,245,.4); }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,255,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-    .issue-header {
+    .hero-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      border: 1px solid var(--gray-700);
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 12vw, 9rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-weight: 300;
+      color: var(--gray-400);
+      max-width: 540px;
+      letter-spacing: 0.02em;
+      margin-bottom: 3rem;
+    }
+
+    .hero-meta {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
+      gap: 2rem;
+      justify-content: center;
       flex-wrap: wrap;
     }
 
-    .issue-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text);
-      flex: 1;
+    .hero-meta span {
+      font-size: 0.78rem;
+      color: var(--gray-500);
+      letter-spacing: 0.05em;
     }
 
-    .badge {
-      display: inline-flex;
+    .hero-meta strong {
+      color: var(--gray-300);
+      font-weight: 500;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      gap: 0.5rem;
+      color: var(--gray-600);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      border-radius: 100px;
-      padding: 3px 10px;
+      animation: fade-bob 2s ease-in-out infinite;
     }
 
-    .badge-critical {
-      background: rgba(229,62,62,.15);
-      border: 1px solid rgba(229,62,62,.4);
-      color: #fc8181;
+    .scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gray-500), transparent);
     }
 
-    .badge-attention {
-      background: rgba(217,119,6,.12);
-      border: 1px solid rgba(217,119,6,.4);
-      color: #fbbf24;
+    @keyframes fade-bob {
+      0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+      50%       { opacity: 1;   transform: translateX(-50%) translateY(6px); }
     }
 
-    .badge-critical::before { content: '●'; font-size: 7px; }
-    .badge-attention::before { content: '●'; font-size: 7px; }
-
-    .issue-body {
-      font-size: 13.5px;
-      color: var(--muted);
-      line-height: 1.65;
+    /* ─── DIVIDER ─── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gray-700), transparent);
     }
 
-    /* ── HIGHLIGHTS TABLE ── */
-    .highlight-grid { display: flex; flex-direction: column; gap: 12px; }
-
-    .highlight-row {
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 0;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: border-color .2s;
+    /* ─── SECTIONS ─── */
+    section {
+      padding: 6rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
     }
 
-    .highlight-row:hover { border-color: rgba(108,62,245,.4); }
-
-    .highlight-name {
-      background: var(--surface2);
-      padding: 16px 18px;
-      font-size: 13px;
+    .section-label {
+      font-size: 0.65rem;
       font-weight: 700;
-      color: var(--violet);
-      display: flex;
-      align-items: center;
-      border-right: 1px solid var(--border);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 1rem;
     }
 
-    .highlight-desc {
-      padding: 16px 18px;
-      font-size: 13.5px;
-      color: var(--muted);
-      line-height: 1.6;
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
     }
 
-    /* ── GAP BLOCK ── */
-    .gap-block {
-      background: linear-gradient(135deg, rgba(108,62,245,.08), rgba(59,31,168,.12));
-      border: 1px solid rgba(108,62,245,.3);
-      border-radius: 18px;
-      padding: 36px 32px;
-    }
-
-    .gap-block p {
-      color: rgba(240,239,255,.8);
-      font-size: 14.5px;
+    .section-body {
+      font-size: 1rem;
+      color: var(--gray-300);
+      max-width: 620px;
       line-height: 1.8;
-      margin-bottom: 16px;
     }
 
-    .gap-block p:last-child { margin-bottom: 0; }
-
-    /* ── PRIORITY LIST ── */
-    .priority-list { display: flex; flex-direction: column; gap: 16px; }
-
-    .priority-item {
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
+    /* ─── SCHEDULE ─── */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
     }
 
-    .priority-num {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--purple-d), var(--purple));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px;
-      font-weight: 800;
-      color: #fff;
-      flex-shrink: 0;
-      box-shadow: 0 0 0 3px rgba(108,62,245,.2);
+    @media (max-width: 600px) {
+      .schedule-grid { grid-template-columns: 1fr; }
     }
 
-    .priority-content {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px 20px;
-      flex: 1;
-      transition: border-color .2s;
-    }
-
-    .priority-content:hover { border-color: rgba(108,62,245,.45); }
-
-    .priority-content strong {
-      display: block;
-      font-size: 14.5px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .priority-content p {
-      font-size: 13.5px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    /* ── CLOSING QUOTE ── */
-    .closing {
-      margin-top: 64px;
-      background: linear-gradient(135deg, rgba(201,168,76,.07), rgba(108,62,245,.1));
-      border: 1px solid rgba(201,168,76,.25);
-      border-radius: 20px;
-      padding: 48px 40px;
-      text-align: center;
+    .schedule-card {
+      border: 1px solid var(--gray-700);
+      border-radius: 12px;
+      padding: 2rem;
+      background: var(--gray-900);
       position: relative;
       overflow: hidden;
     }
 
-    .closing::before {
-      content: '"';
+    .schedule-card::before {
+      content: '';
       position: absolute;
-      top: -20px; left: 24px;
-      font-family: 'Playfair Display', serif;
-      font-size: 160px;
-      color: rgba(201,168,76,.08);
-      line-height: 1;
-      pointer-events: none;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--gray-500), transparent);
     }
 
-    .closing blockquote {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(17px, 2.5vw, 21px);
-      font-style: italic;
-      color: var(--gold-l);
-      line-height: 1.7;
-      max-width: 680px;
-      margin: 0 auto 24px;
-      position: relative; z-index: 1;
-    }
-
-    .closing-sig {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+    .schedule-card .day {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--gray-500);
+      margin-bottom: 0.5rem;
     }
 
-    /* ── DIVIDER ── */
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 8px 0;
+    .schedule-card .date {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--white);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
     }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 540px) {
-      header { padding: 56px 20px 64px; }
-      .closing { padding: 36px 24px; }
-      .gap-block { padding: 28px 20px; }
-      .highlight-row { grid-template-columns: 1fr; }
-      .highlight-name { border-right: none; border-bottom: 1px solid var(--border); }
+    .schedule-card .hours {
+      font-size: 0.95rem;
+      color: var(--gray-300);
     }
 
-    /* ── PRINT ── */
-    @media print {
-      body { background: #fff; color: #111; }
-      .score-card, .strength-item, .issue-card, .highlight-row,
-      .priority-content, .gap-block, .closing {
-        border: 1px solid #ddd !important;
-        background: #fafafa !important;
-      }
+    .schedule-total {
+      margin-top: 1.5rem;
+      padding: 1.2rem 1.8rem;
+      border: 1px solid var(--gray-700);
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--gray-900);
+    }
+
+    .schedule-total .label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+    }
+
+    .schedule-total .value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* ─── SCOPE LIST ─── */
+    .scope-list {
+      list-style: none;
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .scope-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid var(--gray-700);
+      border-radius: 8px;
+      background: var(--gray-900);
+      font-size: 0.95rem;
+      color: var(--gray-300);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .scope-list li:hover {
+      border-color: var(--gray-500);
+      background: var(--gray-700);
+    }
+
+    .scope-list li::before {
+      content: '→';
+      color: var(--gray-500);
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    /* ─── PRICING ─── */
+    .pricing-card {
+      margin-top: 2.5rem;
+      border: 1px solid var(--gray-700);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--gray-900);
+    }
+
+    .pricing-header {
+      padding: 2.5rem;
+      border-bottom: 1px solid var(--gray-700);
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .pricing-header .currency {
+      font-size: 1.5rem;
+      color: var(--gray-400);
+      font-weight: 300;
+    }
+
+    .pricing-header .amount {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 5rem);
+      color: var(--white);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .pricing-header .cents {
+      font-size: 1.5rem;
+      color: var(--gray-400);
+      font-weight: 300;
+      align-self: flex-start;
+      margin-top: 0.5rem;
+    }
+
+    .pricing-body {
+      padding: 2rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      .pricing-body { grid-template-columns: 1fr; }
+    }
+
+    .pricing-item .label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 0.4rem;
+    }
+
+    .pricing-item .value {
+      font-size: 0.95rem;
+      color: var(--gray-300);
+    }
+
+    /* ─── NOTES ─── */
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+    }
+
+    .note-card {
+      border: 1px solid var(--gray-700);
+      border-radius: 10px;
+      padding: 1.5rem;
+      background: var(--gray-900);
+    }
+
+    .note-card .icon {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      filter: grayscale(1);
+    }
+
+    .note-card .note-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 0.4rem;
+    }
+
+    .note-card p {
+      font-size: 0.9rem;
+      color: var(--gray-300);
+      line-height: 1.5;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--gray-700);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-insta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gray-400);
+      font-size: 0.85rem;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      margin-top: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .footer-insta:hover { color: var(--white); }
+
+    .footer-validity {
+      margin-top: 2rem;
+      font-size: 0.72rem;
+      color: var(--gray-600);
+      letter-spacing: 0.1em;
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="agency-badge">
-      <div class="agency-logo">m<span>1</span></div>
-      <span class="agency-name">Agência M1</span>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">Proposta Comercial</div>
+    <h1>MIRECMAKER</h1>
+    <p class="hero-sub">Cobertura estratégica e produção de conteúdo para eventos</p>
+    <div class="hero-meta">
+      <span><strong>Responsável</strong> &nbsp;Izabella Oliveira</span>
+      <span><strong>Data</strong> &nbsp;18.06.2026</span>
     </div>
-    <div class="phase-tag">Fase 1 · Análise Estratégica</div>
-    <h1>Diagnóstico <em>Estratégico</em></h1>
-    <p class="handle">Análise completa para <strong>@marinamartinssemijoia</strong></p>
-  </header>
+    <div class="scroll-hint">scroll</div>
+  </section>
 
-  <div class="container">
+  <div class="divider"></div>
 
-    <!-- VISÃO GERAL -->
-    <div class="section-label">
-      <h2>Visão Geral do Perfil</h2>
-    </div>
+  <!-- OBJETIVO -->
+  <section id="objetivo">
+    <p class="section-label">01 — Objetivo</p>
+    <h2 class="section-title">Presença digital<br>que gera resultado</h2>
+    <p class="section-body">
+      Cobertura estratégica do evento com produção de conteúdo em tempo real para fortalecimento da presença digital da marca. Cada momento capturado com intenção, cada entrega pensada para engajar.
+    </p>
+  </section>
 
-    <div class="score-grid">
-      <div class="score-card mid">
-        <div class="score-value">5<span class="score-denom">/10</span></div>
-        <div class="score-label">Primeira Impressão</div>
-      </div>
-      <div class="score-card low">
-        <div class="score-value">4<span class="score-denom">/10</span></div>
-        <div class="score-label">Posicionamento</div>
-      </div>
-      <div class="score-card good">
-        <div class="score-value">8<span class="score-denom">/10</span></div>
-        <div class="score-label">Prova Social</div>
-      </div>
-      <div class="score-card low">
-        <div class="score-value">4<span class="score-denom">/10</span></div>
-        <div class="score-label">Consistência Visual</div>
-      </div>
-    </div>
+  <div class="divider"></div>
 
-    <!-- O QUE FUNCIONA -->
-    <div class="section-label">
-      <h2>O que funciona — Ativos Reais da Marca</h2>
-    </div>
-
-    <div class="strength-list">
-      <div class="strength-item">
-        <div class="strength-icon">✨</div>
-        <div class="strength-text">
-          <strong>Humanização genuína</strong>
-          <p>Marina aparece, se mostra, cria conexão real. Isso é raro e vale muito no nicho de semijoias.</p>
-        </div>
+  <!-- CRONOGRAMA -->
+  <section id="cronograma">
+    <p class="section-label">02 — Cronograma</p>
+    <h2 class="section-title">Datas do evento</h2>
+    <div class="schedule-grid">
+      <div class="schedule-card">
+        <p class="day">Dia 01</p>
+        <p class="date">25 / 07 / 2026</p>
+        <p class="hours">9h às 18h &nbsp;·&nbsp; 9 horas</p>
       </div>
-      <div class="strength-item">
-        <div class="strength-icon">💌</div>
-        <div class="strength-text">
-          <strong>Prova social robusta</strong>
-          <p>Feedbacks com cartas manuscritas, embalagem verde com logo dourado, clientes que voltam — isso é diferencial de marca, não de produto.</p>
-        </div>
-      </div>
-      <div class="strength-item">
-        <div class="strength-icon">🏆</div>
-        <div class="strength-text">
-          <strong>18 anos de mercado</strong>
-          <p>Trajetória de sacoleira a empresária é uma narrativa poderosa que ainda não está sendo usada estrategicamente.</p>
-        </div>
-      </div>
-      <div class="strength-item">
-        <div class="strength-icon">🪞</div>
-        <div class="strength-text">
-          <strong>Identidade física forte</strong>
-          <p>Showroom com espelho "Você é linda", embalagem icônica, experiência de recebimento diferenciada.</p>
-        </div>
-      </div>
-      <div class="strength-item">
-        <div class="strength-icon">👑</div>
-        <div class="strength-text">
-          <strong>Comunidade em formação</strong>
-          <p>20,8 mil seguidores com perfil de clientes fiéis e engajadas — base sólida para crescimento.</p>
-        </div>
+      <div class="schedule-card">
+        <p class="day">Dia 02</p>
+        <p class="date">26 / 07 / 2026</p>
+        <p class="hours">9h às 13h &nbsp;·&nbsp; 4 horas</p>
       </div>
     </div>
-
-    <!-- DESALINHAMENTOS -->
-    <div class="section-label">
-      <h2>Desalinhamentos Críticos</h2>
+    <div class="schedule-total">
+      <span class="label">Carga horária total</span>
+      <span class="value">13 horas</span>
     </div>
+  </section>
 
-    <div class="issue-list">
-      <div class="issue-card">
-        <div class="issue-header">
-          <span class="issue-title">Bio sem posicionamento</span>
-          <span class="badge badge-critical">Crítico</span>
+  <div class="divider"></div>
+
+  <!-- ESCOPO -->
+  <section id="escopo">
+    <p class="section-label">03 — Escopo da entrega</p>
+    <h2 class="section-title">O que está incluso</h2>
+    <ul class="scope-list">
+      <li>Captação estratégica de vídeos durante todo o evento</li>
+      <li>Cobertura em tempo real dos principais momentos</li>
+      <li>Registro de palestras, interações, bastidores e ativações</li>
+      <li>Produção de conteúdo para Stories durante os dias de evento</li>
+      <li>Seleção, organização e entrega de todo o conteúdo produzido para utilização futura nas redes sociais da marca</li>
+      <li>Edição e entrega de 2 vídeos resumo — um por dia de evento</li>
+    </ul>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROPOSTA COMERCIAL -->
+  <section id="proposta">
+    <p class="section-label">04 — Proposta comercial</p>
+    <h2 class="section-title">Investimento</h2>
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <span class="currency">R$</span>
+        <span class="amount">2.000</span>
+        <span class="cents">,00</span>
+      </div>
+      <div class="pricing-body">
+        <div class="pricing-item">
+          <p class="label">Parcela 01</p>
+          <p class="value">R$ 1.000,00 para reserva da data</p>
         </div>
-        <p class="issue-body">"Semijoias a um clique de você" poderia ser de qualquer loja do Brasil. Não comunica os 18 anos, não comunica a Rainha dos Presentes, não gera desejo nem diferenciação.</p>
-      </div>
-
-      <div class="issue-card">
-        <div class="issue-header">
-          <span class="issue-title">Feed sem coerência visual</span>
-          <span class="badge badge-critical">Crítico</span>
-        </div>
-        <p class="issue-body">Fotos bem produzidas alternando com imagens sem tratamento. Sem paleta definida. Transmite amadorismo para quem chega pela primeira vez — mesmo que o produto seja premium.</p>
-      </div>
-
-      <div class="issue-card">
-        <div class="issue-header">
-          <span class="issue-title">Destaques fragmentados</span>
-          <span class="badge badge-attention">Atenção</span>
-        </div>
-        <p class="issue-body">14 destaques diferentes contando histórias desconexas. Nenhum conta a história principal: quem é Marina Martins, de onde veio, o que construiu.</p>
-      </div>
-
-      <div class="issue-card">
-        <div class="issue-header">
-          <span class="issue-title">Narrativa de trajetória ausente</span>
-          <span class="badge badge-attention">Atenção</span>
-        </div>
-        <p class="issue-body">A história de sacoleira a empresária referência existe — mas está escondida. Quem chega no perfil pela primeira vez não encontra essa história em lugar nenhum.</p>
-      </div>
-
-      <div class="issue-card">
-        <div class="issue-header">
-          <span class="issue-title">Falta de tempo para mostrar tudo</span>
-          <span class="badge badge-attention">Atenção</span>
-        </div>
-        <p class="issue-body">A própria Marina identificou no briefing que "falta de tempo para mostrar tudo" é uma dor real. O conteúdo não acompanha o tamanho do que a marca entrega.</p>
-      </div>
-
-      <div class="issue-card">
-        <div class="issue-header">
-          <span class="issue-title">Sem estratégia de conteúdo visível</span>
-          <span class="badge badge-attention">Atenção</span>
-        </div>
-        <p class="issue-body">O perfil publica, mas sem uma linha editorial clara. Não há progressão narrativa, funil de conteúdo nem intenção comercial estruturada por semana.</p>
-      </div>
-    </div>
-
-    <!-- DIAGNÓSTICO DOS DESTAQUES -->
-    <div class="section-label">
-      <h2>Diagnóstico dos Destaques</h2>
-    </div>
-
-    <div class="highlight-grid">
-      <div class="highlight-row">
-        <div class="highlight-name">Quem eu sou</div>
-        <div class="highlight-desc">Fragmentado. Não conta a trajetória. Precisa ser reconstruído com narrativa dos 18 anos em 4–5 slides estratégicos.</div>
-      </div>
-      <div class="highlight-row">
-        <div class="highlight-name">Influencer</div>
-        <div class="highlight-desc">Boa ideia, execução fraca. Nome genérico e conteúdo desatualizado. Renomear para "Quem usa" com seleção visual mais cuidadosa.</div>
-      </div>
-      <div class="highlight-row">
-        <div class="highlight-name">Clientes</div>
-        <div class="highlight-desc">Autêntico, mas qualidade visual baixa. Priorizar apenas os melhores registros daqui pra frente.</div>
-      </div>
-      <div class="highlight-row">
-        <div class="highlight-name">Feedback delas ⭐</div>
-        <div class="highlight-desc">O destaque mais poderoso do perfil. Cartas manuscritas, embalagem verde, cuidado visível. Fortalecer e manter em destaque.</div>
-      </div>
-      <div class="highlight-row">
-        <div class="highlight-name">Coleções (múltiplos)</div>
-        <div class="highlight-desc">Excesso de destaques por coleção gera ruído e abandono. Unificar em um único destaque "Coleções" com os melhores conteúdos de cada uma.</div>
-      </div>
-      <div class="highlight-row">
-        <div class="highlight-name">Dicas</div>
-        <div class="highlight-desc">Conteúdo de valor, visual desatualizado. Renovação visual necessária.</div>
-      </div>
-      <div class="highlight-row">
-        <div class="highlight-name">Como comprar</div>
-        <div class="highlight-desc">Um dos melhores visuais do perfil. Funcional, paleta dourada. Apenas remover slides de eventos deslocados.</div>
-      </div>
-      <div class="highlight-row">
-        <div class="highlight-name">Novos necessários</div>
-        <div class="highlight-desc">Showroom · Informações · Lady Nights · Experiências (no lugar de Dubai isolado).</div>
-      </div>
-    </div>
-
-    <!-- GAP -->
-    <div class="section-label">
-      <h2>Desalinhamento entre Marca Real e Marca Digital</h2>
-    </div>
-
-    <div class="gap-block">
-      <p>O briefing revela uma marca com missão clara, valores sólidos e propósito de transformar autoestima feminina. O Instagram, porém, ainda comunica uma loja de semijoias comum. Há um gap enorme entre o que a Marina entrega na vida real e o que o perfil mostra.</p>
-      <p>A marca tem personalidade definida no briefing: <em>"uma mulher incrível que sabe o que quer"</em>. Essa personalidade não aparece no posicionamento digital atual. A comunicação ainda não reflete os valores de exclusividade, elegância e empoderamento que a Marina descreveu como inegociáveis.</p>
-    </div>
-
-    <!-- PRIORIDADES -->
-    <div class="section-label">
-      <h2>Prioridades de Ajuste — Ordem de Execução</h2>
-    </div>
-
-    <div class="priority-list">
-      <div class="priority-item">
-        <div class="priority-num">1</div>
-        <div class="priority-content">
-          <strong>Bio — reescrita urgente</strong>
-          <p>Incluir os 18 anos de mercado, o apelido Rainha dos Presentes e uma promessa emocional clara. É a primeira coisa que qualquer visitante lê.</p>
-        </div>
-      </div>
-      <div class="priority-item">
-        <div class="priority-num">2</div>
-        <div class="priority-content">
-          <strong>Destaque "Quem eu sou" — reconstrução</strong>
-          <p>Narrativa de trajetória em 4–5 slides. De sacoleira a referência. Essa história precisa estar na vitrine.</p>
-        </div>
-      </div>
-      <div class="priority-item">
-        <div class="priority-num">3</div>
-        <div class="priority-content">
-          <strong>Reorganização dos destaques</strong>
-          <p>Eliminar os redundantes, unificar coleções, renomear para clareza, criar Showroom + Informações + Lady Nights + Experiências.</p>
-        </div>
-      </div>
-      <div class="priority-item">
-        <div class="priority-num">4</div>
-        <div class="priority-content">
-          <strong>Fortalecer "Feedback delas"</strong>
-          <p>Selecionar os melhores registros, priorizar conteúdo bem produzido, manter como principal prova social do perfil.</p>
-        </div>
-      </div>
-      <div class="priority-item">
-        <div class="priority-num">5</div>
-        <div class="priority-content">
-          <strong>Paleta mínima de coerência no feed</strong>
-          <p>Não precisa ser rígido. Mas as peças precisam aparecer com mais destaque, iluminação consistente e tratamento básico de cor.</p>
-        </div>
-      </div>
-      <div class="priority-item">
-        <div class="priority-num">6</div>
-        <div class="priority-content">
-          <strong>Linha editorial estratégica</strong>
-          <p>Definir os pilares de conteúdo, frequência, intenção de cada post e integração com campanhas de venda mensais.</p>
+        <div class="pricing-item">
+          <p class="label">Parcela 02</p>
+          <p class="value">R$ 1.000,00 até a data do evento</p>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- CLOSING QUOTE -->
-    <div class="closing">
-      <blockquote>
-        "Você tem uma marca de verdade — com história, cuidado e resultado. O que falta é que o seu Instagram conte essa história com a mesma força que você conta quando está olhando nos olhos de uma cliente."
-      </blockquote>
-      <span class="closing-sig">Diagnóstico Estratégico Fase 1 · Agência M1</span>
+  <div class="divider"></div>
+
+  <!-- OBSERVAÇÕES -->
+  <section id="observacoes">
+    <p class="section-label">05 — Observações</p>
+    <h2 class="section-title">Detalhes importantes</h2>
+    <div class="notes-grid">
+      <div class="note-card">
+        <div class="icon">🚗</div>
+        <p class="note-title">Deslocamento</p>
+        <p>Incluso no valor da proposta.</p>
+      </div>
+      <div class="note-card">
+        <div class="icon">🍽</div>
+        <p class="note-title">Alimentação</p>
+        <p>Sob responsabilidade do contratante.</p>
+      </div>
+      <div class="note-card">
+        <div class="icon">📦</div>
+        <p class="note-title">Prazo de entrega</p>
+        <p>Até 7 dias úteis após o evento.</p>
+      </div>
+      <div class="note-card">
+        <div class="icon">⏳</div>
+        <p class="note-title">Validade da proposta</p>
+        <p>15 dias a partir da data de emissão.</p>
+      </div>
     </div>
+  </section>
 
-  </div><!-- /container -->
+  <div class="divider"></div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-brand">MIRECMAKER</p>
+    <a class="footer-insta" href="https://instagram.com/mirecmaker" target="_blank" rel="noopener">
+      ↗ @mirecmaker
+    </a>
+    <p class="footer-validity">Proposta emitida em 18.06.2026 · Válida por 15 dias</p>
+  </footer>
 
 </body>
 </html>
